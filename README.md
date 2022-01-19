@@ -11,8 +11,10 @@ On default running the **PoseModule.py** will draw full BlazePose model over the
 
 **KneeAngle.py** will show frontal knee angle for left or right leg. Knee frontal plane movement should be between 170 and 190 degrees during single leg squat. The drawing will indicate (green/red) if frontal angle is inside or outside of the wanted motion range. 
 
-![image](https://user-images.githubusercontent.com/11043247/150091572-619a3d6a-205b-4c5b-b9eb-a09bbd88629b.png)
-![image](https://user-images.githubusercontent.com/11043247/150106338-236e9877-a37a-4ace-b66f-ceb22b636b33.png)
+
+Range ok                  |  Out of range
+:-------------------------:|:-------------------------:
+![image](https://user-images.githubusercontent.com/11043247/150091572-619a3d6a-205b-4c5b-b9eb-a09bbd88629b.png)  |  ![image](https://user-images.githubusercontent.com/11043247/150106338-236e9877-a37a-4ace-b66f-ceb22b636b33.png)
 
 **SquatCounter.py** will count reps for squat movements. A progression bar is visible on the right side of the screen. When progresssion goes to 0 and back to 100, one rep will be counted. The progression is based on relative distance between hip and ankle landmarks. 100 % distance is calculated when person is standing with straight leg. 75 % distance is counted as one rep for normal squats (90 degree knee angle) and 50 % is calculated for a rep for pistol squats. 
 

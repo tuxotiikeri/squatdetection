@@ -4,12 +4,12 @@ Squat detection for testing blazepose model for single leg squats.
 
 **PoseModule.py** is main module and has all the functions for detecting landmarks and for calculating angles and distances.
 
-On default running the **PoseModule.py** will draw full BlazePose model over the image.
+On default running the **PoseModule.py** will draw full BlazePose model (33 landmarks) over the image.
 
 ![image](https://user-images.githubusercontent.com/11043247/150089845-5ce1cd7f-7f2c-442f-8d1c-ebbd121406e5.png)
 
 
-**KneeAngle.py** will show frontal knee angle for left or right leg. Knee frontal plane movement should be between 170 and 190 degrees during single leg squat. The drawing will indicate (green/red) if frontal angle is inside or outside of the wanted motion range. 
+**KneeAngle.py** will show frontal knee angle for left or right leg. Knee frontal plane movement should be between 170 and 190 degrees during single leg squat. The drawing  indicates (green/red) if frontal angle is inside or outside of the wanted motion range. 
 
 
 Range ok                  |  Out of range

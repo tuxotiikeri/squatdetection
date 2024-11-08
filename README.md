@@ -1,10 +1,15 @@
-# squatdetection
+# Työkalu polven frontaalitason nivelkulmalaskentaan 
 
-Squat detection for testing blazepose model for single leg squats. 
+Yleiskuvaus
 
-**PoseModule.py** is main module and has all the functions for detecting landmarks and for calculating angles and distances.
+Tämä Python-skripti analysoi videoita, joissa kuvataan alaraajojen liikettä. Ohjelma hyödyntää MediaPipe Pose -algoritmia lonkan, polven ja nilkan nivelpisteiden tunnistamiseen videon jokaisesta kuvasta (frame). MediaPipe tunnistaa kuvasta nivelpisteiden koordinaatit (x, y), ja OpenCV piirtää kuvan päälle nivelpisteet sekä niiden väliset linjat.
 
-On default running the **PoseModule.py** will draw full BlazePose model (33 landmarks) over the image.
+Ohjelman toiminta
+Videoanalyysi: Ohjelma lukee syöte-videon ja analysoi sen ruutu kerrallaan.
+MediaPipe-tunnistus: MediaPipe Pose tunnistaa lonkan, polven ja nilkan nivelpisteet ja tuottaa näiden koordinaatit (x, y).
+Graafinen esitys: OpenCV piirtää nivelpisteet ja niitä yhdistävät segmentit videoon.
+Signaalin suodatus: Ohjelma tallentaa nivelpisteiden koordinaatit Pandas DataFrameen ja suodattaa ne alipäästösuodattimella vähentäen nivelpisteiden tunnistuksessa esiintyvää jitteriä. Tämä tekee liikeradoista tasaisempia.
+Kulman laskenta: Skripti laskee polven kulman suodatettujen koordinaattien perusteella kaavalla:
 
 ![image](https://user-images.githubusercontent.com/11043247/150089845-5ce1cd7f-7f2c-442f-8d1c-ebbd121406e5.png)
 

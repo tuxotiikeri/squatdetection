@@ -30,11 +30,12 @@ pip install numpy pandas opencv-python-headless mediapipe scipy
 
 Käyttäjän muokattavat asetukset: Koodin alussa on osio, jossa voit muuttaa seuraavia asetuksia:
 
-## ======= KÄYTTÄJÄN MUOKATTAVAT ASETUKSET =======
-side = "right"  # Valitse "left" tai "right" analysoitavan jalan mukaan
-video_path = 'vids/insta/kyykky01_rotated.avi'  # Syötevideon polku tai (0) , jolloin voi nivelkulmia laskea läppärin omalla kameralla
-save_path = 'results/'  # Tallennuskansio nivelpisteille ja nivelkulmille
-output_filename = f'{save_path}{side}_landmarks_and_angles.csv'  # Tallennustiedoston nimi
+======= KÄYTTÄJÄN MUOKATTAVAT ASETUKSET =======
+side = "right"  # Valitse "left" tai "right" analysoitavan jalan mukaan 
+video_path = 'vids/insta/kyykky01_rotated.avi'  # Syötevideon polku
+''' video_path = 0 # live-kuvaus läppärin omalla kameralla'''
+save_path = 'results/'  # Tallennuskansio nivelpisteille ja nivelkulmille 
+output_filename = f'{save_path}{side}_landmarks_and_angles.csv'  # Tallennustiedoston nimi 
 
 ## Ohjelman suorittaminen: Aja koodi komennolla:
 

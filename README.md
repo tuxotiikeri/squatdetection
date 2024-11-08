@@ -1,26 +1,44 @@
 # Työkalu polven frontaalitason nivelkulmalaskentaan 
 
-Yleiskuvaus
+## Yleiskuvaus
 
-Tämä Python-skripti analysoi videoita, joissa kuvataan alaraajojen liikettä. Ohjelma hyödyntää MediaPipe Pose -algoritmia lonkan, polven ja nilkan nivelpisteiden tunnistamiseen videon jokaisesta kuvasta (frame). MediaPipe tunnistaa kuvasta nivelpisteiden koordinaatit (x, y), ja OpenCV piirtää kuvan päälle nivelpisteet sekä niiden väliset linjat.
+Tämä Python-skripti analysoi videoita, joissa kuvataan alaraajojen liikettä. Ohjelma hyödyntää MediaPipe Pose -algoritmia lonkan, polven ja nilkan nivelpisteiden tunnistamiseen videon jokaisesta kuvasta (frame). MediaPipe tunnistaa kuvasta nivelpisteiden koordinaatit (x, y), ja OpenCV piirtää kuvan päälle nivelpisteet sekä niiden väliset linjat. Koordinaatti- ja kulmatiedot tallentuvatat jokaisesta kuvasta.
 
-Ohjelman toiminta
-Videoanalyysi: Ohjelma lukee syöte-videon ja analysoi sen ruutu kerrallaan.
-MediaPipe-tunnistus: MediaPipe Pose tunnistaa lonkan, polven ja nilkan nivelpisteet ja tuottaa näiden koordinaatit (x, y).
-Graafinen esitys: OpenCV piirtää nivelpisteet ja niitä yhdistävät segmentit videoon.
-Signaalin suodatus: Ohjelma tallentaa nivelpisteiden koordinaatit Pandas DataFrameen ja suodattaa ne alipäästösuodattimella vähentäen nivelpisteiden tunnistuksessa esiintyvää jitteriä. Tämä tekee liikeradoista tasaisempia.
-Kulman laskenta: Skripti laskee polven kulman suodatettujen koordinaattien perusteella kaavalla:
+Scriptin tarkoitus on auttaa tekemään objektiivinen arvio polven frontaalitason kulmasta, mutta se ei ole välttämättä luotettava referenssi muiden laitteiden validointiin. 
 
-![image](https://user-images.githubusercontent.com/11043247/150089845-5ce1cd7f-7f2c-442f-8d1c-ebbd121406e5.png)
+## Ohjelman toiminta
+1. Videoanalyysi: Ohjelma lukee syöte-videon ja analysoi sen ruutu kerrallaan. 
+2. MediaPipe-tunnistus: MediaPipe Pose tunnistaa lonkan, polven ja nilkan nivelpisteet ja tuottaa näiden koordinaatit (x, y).
+3. Graafinen esitys: OpenCV piirtää nivelpisteet ja niitä yhdistävät segmentit videoon.
+4. Signaalin suodatus: Ohjelma tallentaa nivelpisteiden koordinaatit Pandas DataFrameen ja suodattaa ne alipäästösuodattimella vähentäen nivelpisteiden tunnistuksessa esiintyvää jitteriä. Tämä tekee liikeradoista tasaisempia.
+5. Kulman laskenta: Skripti laskee polven kulman suodatettujen koordinaattien perusteella kaavalla:
+6. Tallennus: Lopuksi ohjelma tallentaa suodatetut koordinaatit ja lasketut kulmat CSV-tiedostoon.
 
+## Riippuvuudet
+Varmista, että seuraavat kirjastot on asennettu Python 3.9 -versiossa tai uudemmassa.
 
-**KneeAngle.py** will show frontal knee angle for left or right leg. Knee frontal plane movement should be between 170 and 190 degrees during single leg squat. The drawing  indicates (green/red) if frontal angle is inside or outside of the wanted motion range. 
+1. Python 3.9 tai uudempi: Tämä skripti on testattu Python 3.9 -versiolla.
+2. MediaPipe: Nivelpisteiden tunnistamiseen.
+3. OpenCV: Kuvankäsittelyyn ja nivelpisteiden piirtämiseen.
+4. Pandas: Tietojen tallennukseen ja käsittelyyn.
+5. NumPy: Matemaattisiin operaatioihin.
+6. SciPy: Signaalin suodattamiseen.
 
+## Käyttöohjeet
+Lataa ja asenna tarvittavat kirjastot komennolla:
+pip install numpy pandas opencv-python-headless mediapipe scipy
 
-Range ok                  |  Out of range
-:-------------------------:|:-------------------------:
-![image](https://user-images.githubusercontent.com/11043247/150091572-619a3d6a-205b-4c5b-b9eb-a09bbd88629b.png)  |  ![image](https://user-images.githubusercontent.com/11043247/150106338-236e9877-a37a-4ace-b66f-ceb22b636b33.png)
+Käyttäjän muokattavat asetukset: Koodin alussa on osio, jossa voit muuttaa seuraavia asetuksia:
 
-**SquatCounter.py** will count reps for squat movements. A progression bar is visible on the right side of the screen. When progresssion goes to 0 and back to 100, one rep will be counted. The progression is based on relative distance between hip and ankle landmarks. 100 % distance is calculated when person is standing with straight leg. 75 % distance is counted as one rep for normal squats (90 degree knee angle) and 50 % is calculated for a rep for pistol squats. 
+## ======= KÄYTTÄJÄN MUOKATTAVAT ASETUKSET =======
+side = "right"  # Valitse "left" tai "right" analysoitavan jalan mukaan
+video_path = 'vids/insta/kyykky01_rotated.avi'  # Syötevideon polku tai (0) , jolloin voi nivelkulmia laskea läppärin omalla kameralla
+save_path = 'results/'  # Tallennuskansio nivelpisteille ja nivelkulmille
+output_filename = f'{save_path}{side}_landmarks_and_angles.csv'  # Tallennustiedoston nimi
 
-![image](https://user-images.githubusercontent.com/11043247/150110743-e6ef2d50-30c9-47f0-a4ad-1bb6dedfdd8d.png)
+## Ohjelman suorittaminen: Aja koodi komennolla:
+
+python nivelkulma_laskenta.py
+
+Ohjelma avaa videon ja näyttää analysoidun videon OpenCV-ikkunassa. Paina q sulkeaksesi ikkunan ja tallentaaksesi tulokset.
+
